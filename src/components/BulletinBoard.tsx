@@ -20,8 +20,6 @@ export default function BulletinBoard() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   
-
-
   const nextSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % NOTICES.length);
   }, []);
@@ -50,59 +48,56 @@ export default function BulletinBoard() {
 
   return (
     <div 
-        className="relative bg-white/60 backdrop-blur-sm rounded-[24px] w-full h-full border border-white/60 p-4 shadow-sm overflow-hidden flex custom-scrollbar group"
+        className="relative w-full h-full rounded-[24px] shadow-[0_2px_2px_#CAEBFF] bg-white/60 backdrop-blur-sm border border-white/60 group"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
     >
-        {/* List Window */}
-        <div className="flex-1 overflow-hidden relative mr-2">
-            <div 
-                className="transition-transform duration-500 ease-in-out flex flex-col gap-2"
-                style={{ transform: `translateY(-${activeIndex * (ITEM_HEIGHT + 8)}px)` }} // 8px gap
-            >
-                {NOTICES.map((notice) => (
-                    <div 
-                        key={notice.id} 
-                        className="flex items-center gap-3 w-full p-2 h-[44px] rounded-xl hover:bg-white/80 transition-colors cursor-default border border-transparent hover:border-indigo-100 shrink-0"
-                    >
-                        <div className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full ${getTagColor(notice.type)} bg-opacity-50`}>
-                            {getIcon(notice.type)}
+        <div className="absolute inset-[1px] p-4 overflow-hidden flex custom-scrollbar rounded-[24px]">
+            {/* List Window */}
+            <div className="flex-1 overflow-hidden relative mr-2">
+                <div 
+                    className="transition-transform duration-500 ease-in-out flex flex-col gap-2"
+                    style={{ transform: `translateY(-${activeIndex * (ITEM_HEIGHT + 8)}px)` }} // 8px gap
+                >
+                    {NOTICES.map((notice) => (
+                        <div 
+                            key={notice.id} 
+                            className="flex items-center gap-3 w-full p-2 h-[44px] rounded-xl hover:bg-white/80 transition-colors cursor-default border border-transparent hover:border-indigo-100 shrink-0"
+                        >
+                            <div className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full ${getTagColor(notice.type)} bg-opacity-50`}>
+                                {getIcon(notice.type)}
+                            </div>
+                            
+                            <div className="flex-1 min-w-0 flex items-center gap-2">
+                                <span className={`text-[10px] px-1.5 py-0.5 rounded-md border text-center min-w-[36px] ${getTagColor(notice.type)}`}>
+                                    {notice.tag}
+                                </span>
+                                <span className="text-sm text-slate-700 font-medium truncate">
+                                    {notice.text}
+                                </span>
+                            </div>
                         </div>
-                        
-                        <div className="flex-1 min-w-0 flex items-center gap-2">
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded-md border text-center min-w-[36px] ${getTagColor(notice.type)}`}>
-                                {notice.tag}
-                            </span>
-                            <span className="text-sm text-slate-700 font-medium truncate">
-                                {notice.text}
-                            </span>
-                        </div>
-                    </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Pagination Dots (Right Side) */}
+            <div className="flex flex-col items-center justify-center gap-1.5 shrink-0 w-3 border-l border-slate-100 pl-2 ml-1">
+                 {NOTICES.map((_, idx) => (
+                    <button
+                        key={idx}
+                        onClick={() => setActiveIndex(idx)}
+                        className={`rounded-full transition-all duration-300 ${idx === activeIndex ? 'h-4 w-1.5 bg-indigo-500' : 'h-1.5 w-1.5 bg-slate-300 hover:bg-slate-400'}`}
+                        aria-label={`Go to slide ${idx + 1}`}
+                    />
                 ))}
             </div>
-        </div>
-
-        {/* Pagination Dots (Right Side) */}
-        <div className="flex flex-col items-center justify-center gap-1.5 shrink-0 w-3 border-l border-slate-100 pl-2 ml-1">
-             {NOTICES.map((_, idx) => (
-                <button
-                    key={idx}
-                    onClick={() => setActiveIndex(idx)}
-                    className={`rounded-full transition-all duration-300 ${idx === activeIndex ? 'h-4 w-1.5 bg-indigo-500' : 'h-1.5 w-1.5 bg-slate-300 hover:bg-slate-400'}`}
-                    aria-label={`Go to slide ${idx + 1}`}
-                />
-            ))}
-        </div>
-        
-        {/* Controls (Absolute Right, on Hover) - Adjusted position to be near the dots or over them? 
-            Maybe hiding dots on hover and showing arrows? 
-            Or just placing arrows top/bottom of the dots column?
-            Let's put arrows at the very top/bottom of the dots area for easier access.
-        */}
-        <div className="absolute right-1 top-2 bottom-2 w-8 py-2 flex flex-col justify-between items-center opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10">
-             {/* Pointer events none on container, auto on buttons */}
-             <button onClick={prevSlide} className="pointer-events-auto p-1 rounded-full bg-white/90 shadow-sm hover:bg-white text-indigo-500 translate-x-1"><ChevronUp size={14} /></button>
-             <button onClick={nextSlide} className="pointer-events-auto p-1 rounded-full bg-white/90 shadow-sm hover:bg-white text-indigo-500 translate-x-1"><ChevronDown size={14} /></button>
+            
+            {/* Controls (Absolute Right, on Hover) */}
+            <div className="absolute right-1 top-2 bottom-2 w-8 py-2 flex flex-col justify-between items-center opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10">
+                 <button onClick={prevSlide} className="pointer-events-auto p-1 rounded-full bg-white/90 shadow-sm hover:bg-white text-indigo-500 translate-x-1"><ChevronUp size={14} /></button>
+                 <button onClick={nextSlide} className="pointer-events-auto p-1 rounded-full bg-white/90 shadow-sm hover:bg-white text-indigo-500 translate-x-1"><ChevronDown size={14} /></button>
+            </div>
         </div>
     </div>
   );

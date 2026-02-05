@@ -57,7 +57,7 @@ export default function GameCard({
   if (variant === 'recent-grid-fade') {
      // ... Unchanged ...
      return (
-      <div className="bg-white rounded-[28px] overflow-hidden relative flex flex-col h-[200px] shadow-[0_4px_24px_rgba(200,210,255,0.45)] hover:shadow-[0_8px_32px_rgba(180,195,255,0.6)] transition-all duration-300 hover:-translate-y-1 group border border-indigo-50/50">
+      <div className="bg-white rounded-[28px] overflow-hidden relative flex flex-col h-[200px] shadow-[0_2px_2px_#CAEBFF] hover:shadow-[0_4px_4px_#CAEBFF] transition-all duration-300 hover:-translate-y-1 group border border-indigo-50/50">
          <div className="relative z-20 p-5 flex flex-col h-full">
              <div className="flex justify-between items-start">
                  <div className="flex flex-col">
@@ -88,7 +88,7 @@ export default function GameCard({
          </div>
          <HalftoneGridOverlay />
          <div className="absolute bottom-4 right-4 z-30">
-            <div className="w-10 h-10 bg-white rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center text-indigo-500 hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer group-hover:scale-110 duration-200 border border-indigo-50">
+            <div className="w-10 h-10 bg-white rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)] flex items-center justify-center text-[#818cf8] transition-colors cursor-pointer group-hover:scale-110 duration-200 border border-indigo-50">
                <Play fill="currentColor" size={18} className="ml-0.5" />
             </div>
          </div>
@@ -130,17 +130,17 @@ export default function GameCard({
   // Replaced 'library-holographic' with 'library-elegant' for clarity in request fulfillment, 
   // but keeping 'library-elegant' mapped to the new design.
   if (variant === 'library-elegant' || variant === 'library-holographic' || variant === 'library-elegant-rounded') {
-    const bgRoundClass = variant === 'library-elegant-rounded' ? 'rounded-[22px]' : '';
-    const glowRoundClass = variant === 'library-elegant-rounded' ? 'rounded-[26px]' : 'rounded-lg';
+    const bgRoundClass = '';
+    const glowRoundClass = 'rounded-lg';
     // Use user requested shadow for rounded variant, default shadow-lg for others
     const shadowClass = variant === 'library-elegant-rounded' ? 'shadow-[0_2px_2px_#CAEBFF]' : 'shadow-lg';
 
     const hoverEffectClass = variant === 'library-elegant-rounded' 
-      ? 'hover:-translate-y-1 hover:rotate-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]' 
+      ? 'hover:-translate-y-1 hover:rotate-1 hover:shadow-[0_4px_4px_#CAEBFF]' 
       : 'hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(30,58,138,0.2)]';
       
     const aspectRatioClass = variant === 'library-elegant-rounded' ? 'aspect-square' : 'aspect-[3/4]';
-    const imageRoundedClass = variant === 'library-elegant-rounded' ? 'rounded-[8px]' : '';
+    const imageRoundedClass = '';
 
     return (
       <div className={`relative group transition-all duration-500 ${hoverEffectClass} ${bgRoundClass}`}>
@@ -166,7 +166,7 @@ export default function GameCard({
                      {/* Style D (like B): Center Play Button + Polaroid Overlay */}
                      <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-orange-500/10 opacity-30 pointer-events-none mix-blend-overlay"></div>
                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
-                        <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-slate-800 shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
+                        <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-[#818cf8] shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
                             <Play fill="currentColor" size={24} className="ml-1" />
                         </div>
                      </div>
@@ -188,7 +188,7 @@ export default function GameCard({
             <div className="w-full flex flex-col relative px-1"> 
                  
                  <div className="flex justify-between items-baseline mb-1">
-                      <h3 className="font-medium text-lg text-slate-800 tracking-tight leading-tight">
+                      <h3 className="font-medium text-lg text-[#818cf8] tracking-tight leading-tight">
                         {title}
                       </h3>
                       <span className="text-[10px] text-blue-400 font-bold uppercase tracking-widest shrink-0 ml-2">

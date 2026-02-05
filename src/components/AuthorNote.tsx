@@ -100,11 +100,11 @@ export default function AuthorNote({
     const isAurora = variant === 'aurora';
 
     // Container Styles
-    let containerClasses = "bg-white rounded-[24px] w-full h-full shadow-[0_4px_20px_rgba(230,235,255,0.6)] border border-white/60 overflow-hidden flex flex-col relative group";
+    let containerClasses = "bg-white rounded-[24px] w-full h-full shadow-[0_2px_2px_#CAEBFF] border border-white/60 relative group";
     if (isJournal) {
-        containerClasses = "bg-white rounded-[2px] w-full h-full shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-slate-200 relative flex flex-col group rotate-[-0.5deg] hover:rotate-0 transition-transform duration-500 origin-top";
+        containerClasses = "bg-white rounded-[2px] w-full h-full shadow-[0_2px_2px_#CAEBFF] relative group rotate-[-0.5deg] hover:rotate-0 transition-transform duration-500 origin-top";
     } else if (isAurora) {
-        containerClasses = "bg-[#0f172a] rounded-[24px] w-full h-full shadow-[0_8px_32px_rgba(30,27,75,0.5)] border border-white/10 relative flex flex-col group overflow-hidden";
+        containerClasses = "bg-[#0f172a] rounded-[24px] w-full h-full shadow-[0_8px_32px_rgba(30,27,75,0.5)] border border-white/10 relative group";
     }
 
     // Header Styles
@@ -144,102 +144,104 @@ export default function AuthorNote({
                 </>
             )}
 
-            {/* Header / Meta */}
-            <div className={headerClasses}>
-                <div className="flex items-center gap-3">
-                    {/* Avatar */}
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-md ring-2 shrink-0
-                        ${isJournal ? 'ring-slate-100 bg-slate-400 text-white' : ''}
-                        ${isAurora ? 'ring-white/20 bg-indigo-500/80 text-white shadow-indigo-900/50' : ''}
-                        ${!isJournal && !isAurora ? 'ring-white bg-gradient-to-br from-indigo-500 to-purple-600 text-white' : ''}
-                    `}>
-                        {avatarTxt}
-                    </div>
-                    
-                    <div className="flex flex-col">
-                        <div className="flex items-center gap-1.5">
-                            <span className={`font-bold text-sm 
-                                ${isJournal ? 'text-slate-700 font-["KaiTi","STKaiti","楷体","serif"]' : ''}
-                                ${isAurora ? 'text-white' : ''}
-                                ${!isJournal && !isAurora ? 'text-slate-800' : ''}
-                            `}>
-                                {authorName}
-                            </span>
-                            <Verified size={14} className={isJournal ? "text-slate-400" : isAurora ? "text-cyan-400" : "text-blue-500"} />
+            <div className="absolute inset-[1px] flex flex-col overflow-hidden rounded-[inherit]">
+                {/* Header / Meta */}
+                <div className={headerClasses}>
+                    <div className="flex items-center gap-3">
+                        {/* Avatar */}
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shadow-md ring-2 shrink-0
+                            ${isJournal ? 'ring-slate-100 bg-slate-400 text-white' : ''}
+                            ${isAurora ? 'ring-white/20 bg-indigo-500/80 text-white shadow-indigo-900/50' : ''}
+                            ${!isJournal && !isAurora ? 'ring-white bg-gradient-to-br from-indigo-500 to-purple-600 text-white' : ''}
+                        `}>
+                            {avatarTxt}
                         </div>
-                        <span className={`text-xs font-medium ${isAurora ? 'text-indigo-300' : 'text-slate-400'}`}>{role}</span>
+                        
+                        <div className="flex flex-col">
+                            <div className="flex items-center gap-1.5">
+                                <span className={`font-bold text-sm 
+                                    ${isJournal ? 'text-slate-700 font-["KaiTi","STKaiti","楷体","serif"]' : ''}
+                                    ${isAurora ? 'text-white' : ''}
+                                    ${!isJournal && !isAurora ? 'text-slate-800' : ''}
+                                `}>
+                                    {authorName}
+                                </span>
+                                <Verified size={14} className={isJournal ? "text-slate-400" : isAurora ? "text-cyan-400" : "text-blue-500"} />
+                            </div>
+                            <span className={`text-xs font-medium ${isAurora ? 'text-indigo-300' : 'text-slate-400'}`}>{role}</span>
+                        </div>
+                    </div>
+
+                    <div className={`flex items-center gap-1.5 text-xs px-2 py-1 rounded-full border shadow-sm
+                        ${isJournal ? 'bg-slate-50 border-slate-100 text-slate-400' : ''}
+                        ${isAurora ? 'bg-white/10 border-white/10 text-indigo-200' : ''}
+                        ${!isJournal && !isAurora ? 'bg-white border-slate-100 text-slate-400' : ''}
+                    `}>
+                        <Calendar size={12} />
+                        <span>{date}</span>
                     </div>
                 </div>
 
-                <div className={`flex items-center gap-1.5 text-xs px-2 py-1 rounded-full border shadow-sm
-                    ${isJournal ? 'bg-slate-50 border-slate-100 text-slate-400' : ''}
-                    ${isAurora ? 'bg-white/10 border-white/10 text-indigo-200' : ''}
-                    ${!isJournal && !isAurora ? 'bg-white border-slate-100 text-slate-400' : ''}
-                `}>
-                    <Calendar size={12} />
-                    <span>{date}</span>
-                </div>
-            </div>
-
-            {/* Scrolling Area */}
-            <div className="relative flex-1 overflow-hidden">
-                 {/* Decorative Icon */}
-                 {!isJournal && !isAurora && (
-                     <div className="absolute top-4 right-6 text-slate-100 -z-0 pointer-events-none">
-                        <MessageSquareQuote size={60} strokeWidth={1} style={{ transform: 'rotate(10deg)' }} />
-                     </div>
-                 )}
-                 {isJournal && (
-                     <div className="absolute top-4 right-6 text-slate-100 -z-0 pointer-events-none opacity-60">
-                        <span className="text-6xl font-serif">“</span>
-                     </div>
-                 )}
-                 {isAurora && (
-                      <div className="absolute top-6 right-8 text-white/5 -z-0 pointer-events-none">
-                        <MessageSquareQuote size={80} strokeWidth={0.5} style={{ transform: 'rotate(-5deg)' }} />
-                     </div>
-                 )}
-                 
-                 {/* Gradient Masks */}
-                 <div className={`absolute top-0 left-0 right-0 h-6 z-10 pointer-events-none 
-                    ${isJournal ? 'bg-gradient-to-b from-white to-transparent' : ''}
-                    ${isAurora ? 'bg-gradient-to-b from-[#0f172a] to-transparent' : ''}
-                    ${!isJournal && !isAurora ? 'bg-gradient-to-b from-white to-transparent' : ''}
-                 `} />
-                 <div className={`absolute bottom-0 left-0 right-0 h-6 z-10 pointer-events-none 
-                    ${isJournal ? 'bg-gradient-to-t from-white to-transparent' : ''}
-                    ${isAurora ? 'bg-gradient-to-t from-[#0f172a] to-transparent' : ''}
-                    ${!isJournal && !isAurora ? 'bg-gradient-to-t from-white to-transparent' : ''}
-                 `} />
-
-                 {/* 
-                    Container
-                 */}
-                 <div 
-                    ref={scrollContainerRef}
-                    className="h-full overflow-y-auto p-6 space-y-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-                    onMouseEnter={() => { isPausedRef.current = true; }}
-                    onMouseLeave={() => { isPausedRef.current = false; }}
-                    onTouchStart={() => { isPausedRef.current = true; }}
-                    onTouchEnd={() => { isPausedRef.current = false; }} 
-                 >
-                    <div className="space-y-4">
-                        {paragraphs.map((p, idx) => (
-                            <p key={idx} className={textClasses}>
-                                {p}
-                            </p>
-                        ))}
-                    </div>
-                    
-                    {/* Signature for Journal? */}
-                    {isJournal && (
-                         <div className="mt-8 pt-4 border-t border-dashed border-[#e8e4d0] font-[cursive] text-slate-400 text-right pr-4">
-                            ~ &nbsp; {authorName} &nbsp; ✍️
+                {/* Scrolling Area */}
+                <div className="relative flex-1 overflow-hidden">
+                     {/* Decorative Icon */}
+                     {!isJournal && !isAurora && (
+                         <div className="absolute top-4 right-6 text-slate-100 -z-0 pointer-events-none">
+                            <MessageSquareQuote size={60} strokeWidth={1} style={{ transform: 'rotate(10deg)' }} />
                          </div>
-                    )}
+                     )}
+                     {isJournal && (
+                         <div className="absolute top-4 right-6 text-slate-100 -z-0 pointer-events-none opacity-60">
+                            <span className="text-6xl font-serif">“</span>
+                         </div>
+                     )}
+                     {isAurora && (
+                          <div className="absolute top-6 right-8 text-white/5 -z-0 pointer-events-none">
+                            <MessageSquareQuote size={80} strokeWidth={0.5} style={{ transform: 'rotate(-5deg)' }} />
+                         </div>
+                     )}
+                     
+                     {/* Gradient Masks */}
+                     <div className={`absolute top-0 left-0 right-0 h-6 z-10 pointer-events-none 
+                        ${isJournal ? 'bg-gradient-to-b from-white to-transparent' : ''}
+                        ${isAurora ? 'bg-gradient-to-b from-[#0f172a] to-transparent' : ''}
+                        ${!isJournal && !isAurora ? 'bg-gradient-to-b from-white to-transparent' : ''}
+                     `} />
+                     <div className={`absolute bottom-0 left-0 right-0 h-6 z-10 pointer-events-none 
+                        ${isJournal ? 'bg-gradient-to-t from-white to-transparent' : ''}
+                        ${isAurora ? 'bg-gradient-to-t from-[#0f172a] to-transparent' : ''}
+                        ${!isJournal && !isAurora ? 'bg-gradient-to-t from-white to-transparent' : ''}
+                     `} />
 
-                    <div className="h-4" />
-                 </div>
+                     {/* 
+                        Container
+                     */}
+                     <div 
+                        ref={scrollContainerRef}
+                        className="h-full overflow-y-auto p-6 space-y-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                        onMouseEnter={() => { isPausedRef.current = true; }}
+                        onMouseLeave={() => { isPausedRef.current = false; }}
+                        onTouchStart={() => { isPausedRef.current = true; }}
+                        onTouchEnd={() => { isPausedRef.current = false; }} 
+                     >
+                        <div className="space-y-4">
+                            {paragraphs.map((p, idx) => (
+                                <p key={idx} className={textClasses}>
+                                    {p}
+                                </p>
+                            ))}
+                        </div>
+                        
+                        {/* Signature for Journal? */}
+                        {isJournal && (
+                             <div className="mt-8 pt-4 border-t border-dashed border-[#e8e4d0] font-[cursive] text-slate-400 text-right pr-4">
+                                ~ &nbsp; {authorName} &nbsp; ✍️
+                             </div>
+                        )}
+
+                        <div className="h-4" />
+                     </div>
+                </div>
             </div>
         </div>
     );
