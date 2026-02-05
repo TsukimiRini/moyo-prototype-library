@@ -19,9 +19,9 @@ export default function AuthorNote({
     content
 }: AuthorNoteProps) {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-    const [isPaused, setIsPaused] = useState(false);
+    const isPausedRef = useRef(false);
     
-    // Split content and duplicate for endless loop
+    // Process content into paragraphs - No duplication
     const paragraphs = content.split('\n').filter(p => p.trim() !== '');
 
     useEffect(() => {
@@ -29,34 +29,69 @@ export default function AuthorNote({
         if (!container) return;
 
         let animationFrameId: number;
-        let lastTime = 0;
-        const speed = 30; // pixels per second (approx) - slow read speed
+        
+        let phase: 'SCROLL_DOWN' | 'WAIT_BOTTOM' | 'SCROLL_UP' | 'WAIT_TOP' = 'WAIT_TOP';
+        let waitStartTime = 0;
+        
+        const WAIT_TIME_BOTTOM = 2000;
+        const WAIT_TIME_TOP = 2000;
+        const SCROLL_SPEED_DOWN = 0.5;
+        const SCROLL_SPEED_UP = 2.0;
 
-        const scroll = (timestamp: number) => {
-            if (!lastTime) lastTime = timestamp;
-            const deltaTime = timestamp - lastTime;
-            
-            if (!isPaused && deltaTime >= 16) { // ~60fps cap
-                // Scroll logic
-                if (container.scrollTop >= container.scrollHeight / 2) {
-                     // reset to top half seamlessly
-                     container.scrollTop = 0; 
-                     // Adjust for precision if needed, but 0 usually works if halves are identical
-                } else {
-                    container.scrollTop += 0.5; // Speed factor
-                }
-                lastTime = timestamp;
-            } else if (isPaused) {
-                lastTime = timestamp; // Keep time sync so it doesn't jump
+        waitStartTime = performance.now();
+
+        const loop = (timestamp: number) => {
+            if (isPausedRef.current) {
+                waitStartTime += 16; 
+                animationFrameId = requestAnimationFrame(loop);
+                return;
             }
 
-            animationFrameId = requestAnimationFrame(scroll);
+            if (container.scrollHeight <= container.clientHeight) {
+                 animationFrameId = requestAnimationFrame(loop);
+                 return;
+            }
+
+            switch (phase) {
+                case 'SCROLL_DOWN':
+                    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 1) {
+                         phase = 'WAIT_BOTTOM';
+                         waitStartTime = timestamp;
+                    } else {
+                        container.scrollTop += SCROLL_SPEED_DOWN;
+                    }
+                    break;
+
+                case 'WAIT_BOTTOM':
+                    if (timestamp - waitStartTime >= WAIT_TIME_BOTTOM) {
+                        phase = 'SCROLL_UP';
+                    }
+                    break;
+                
+                case 'SCROLL_UP':
+                    if (container.scrollTop <= 0) {
+                        container.scrollTop = 0;
+                        phase = 'WAIT_TOP';
+                        waitStartTime = timestamp;
+                    } else {
+                        container.scrollTop -= SCROLL_SPEED_UP;
+                    }
+                    break;
+
+                 case 'WAIT_TOP':
+                    if (timestamp - waitStartTime >= WAIT_TIME_TOP) {
+                        phase = 'SCROLL_DOWN';
+                    }
+                    break;
+            }
+
+            animationFrameId = requestAnimationFrame(loop);
         };
 
-        animationFrameId = requestAnimationFrame(scroll);
+        animationFrameId = requestAnimationFrame(loop);
 
         return () => cancelAnimationFrame(animationFrameId);
-    }, [isPaused]);
+    }, [paragraphs.length]); 
 
     return (
         <div 
@@ -96,37 +131,25 @@ export default function AuthorNote({
                  <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
 
                  {/* 
-                    Container: overflow-y-auto allows manual scroll. 
-                    We remove scrollbar visually but allow interaction.
+                    Container
                  */}
                  <div 
                     ref={scrollContainerRef}
-                    className="h-full overflow-y-auto p-6 space-y-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                    onTouchStart={() => setIsPaused(true)}
-                    onTouchEnd={() => setIsPaused(false)} // Resume after touch? Or keep paused? Usually resume.
+                    className="h-full overflow-y-auto p-6 space-y-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    onMouseEnter={() => { isPausedRef.current = true; }}
+                    onMouseLeave={() => { isPausedRef.current = false; }}
+                    onTouchStart={() => { isPausedRef.current = true; }}
+                    onTouchEnd={() => { isPausedRef.current = false; }} 
                  >
-                    {/* Content Block 1 */}
                     <div className="space-y-4">
                         {paragraphs.map((p, idx) => (
-                            <p key={`1-${idx}`} className="text-slate-600 leading-relaxed text-sm">
+                            <p key={idx} className="text-slate-600 leading-relaxed text-sm">
                                 {p}
                             </p>
                         ))}
                     </div>
-
-                    {/* Divider / Spacer if needed */}
-                    <div className="h-8" /> 
-
-                    {/* Content Block 2 (Duplicate) */}
-                    <div className="space-y-4">
-                        {paragraphs.map((p, idx) => (
-                            <p key={`2-${idx}`} className="text-slate-600 leading-relaxed text-sm">
-                                {p}
-                            </p>
-                        ))}
-                    </div>
+                    {/* Add some padding at bottom so the text 'ends' nicely before scrolling back */}
+                    <div className="h-4" />
                  </div>
             </div>
         </div>
