@@ -4,7 +4,7 @@ import DashboardSection from '@/components/DashboardSection';
 import GameCard from '@/components/GameCard';
 import Pagination from '@/components/Pagination';
 import Mascot from '@/components/Mascot';
-import { Volume2 } from 'lucide-react';
+import { Volume2, LayoutGrid, Image as ImageIcon, Sparkles, Disc, Feather, LayoutPanelLeft } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -25,7 +25,7 @@ export default function Home() {
         </DashboardSection>
 
          {/* Variant E: Grid Fade (Final Corrected Request) */}
-         <DashboardSection title="上次游玩 (D款: 规整点阵渐变 - 最终版)" className="mb-12">
+         <DashboardSection title="上次游玩" className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
              <GameCard 
                 title="高岭之花" 
@@ -57,8 +57,78 @@ export default function Home() {
           </div>
         </DashboardSection>
 
-        {/* Game Library */}
-        <DashboardSection title="游戏库" className="mb-20">
+        {/* Game Library - Style C: Elegant Blue (User Request) */}
+        <DashboardSection 
+            title="游戏库 (样式C: 幽蓝雅致 - 最终版)" 
+            icon={<Feather className="text-blue-400" size={22} />}
+            className="mb-12"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-2">
+             <div className="p-2">
+                <GameCard 
+                  title="高岭之花" 
+                  description="" 
+                  author="System"
+                  date="04 Feb"
+                  imageSrc="/keyboard.jpg"
+                  variant="library-elegant"
+                />
+             </div>
+             <div className="p-2">
+                <GameCard 
+                  title="Endless Maze" 
+                  description="" 
+                  author="RogueDev"
+                  date="03 Feb"
+                  imageSrc="/keyboard.jpg"
+                  variant="library-elegant"
+                />
+             </div>
+             <div className="p-2">
+                <GameCard 
+                  title="Cyberpunk" 
+                  description="" 
+                  author="CDPR"
+                  date="01 Feb"
+                  imageSrc="/keyboard.jpg"
+                  variant="library-elegant"
+                />
+             </div>
+          </div>
+        </DashboardSection>
+
+        {/* Game Library - Style B: Classic Polaroid */}
+        <DashboardSection 
+            title="游戏库 (样式B: 复古拍立得风)" 
+            icon={<ImageIcon className="text-[#818CF8]" size={22} />}
+            className="mb-12 opacity-80 hover:opacity-100 transition-opacity"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 px-4">
+             <GameCard 
+                title="高岭之花" 
+                description="" 
+                author="user_xpu6"
+                date="Jan 24, 2026"
+                imageSrc="/keyboard.jpg"
+                variant="library-polaroid"
+             />
+             <GameCard 
+                title="无尽迷宫" 
+                description="" 
+                author="OldTrafford"
+                 date="Jan 24, 2026"
+                imageSrc="/keyboard.jpg"
+                variant="library-polaroid"
+             />
+          </div>
+        </DashboardSection>
+
+        {/* Game Library - Style A: Instagram Modern (Refined to Screenshot) */}
+        <DashboardSection 
+            title="游戏库 (样式A: 现代社交/Ins风)" 
+            icon={<LayoutPanelLeft className="text-[#818CF8]" size={22} />}
+            className="mb-20 opacity-80 hover:opacity-100 transition-opacity"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
              <GameCard 
               title="高岭之花" 
@@ -66,21 +136,15 @@ export default function Home() {
               author="user_xpu6"
               date="2026年1月1日"
               imageSrc="/keyboard.jpg"
+              variant="library"
             />
             <GameCard 
-              title="敬请期待" 
-              description="No Description" 
-              isComingSoon
-            />
-            <GameCard 
-              title="敬请期待" 
-              description="No Description" 
-              isComingSoon
-            />
-            <GameCard 
-              title="敬请期待" 
-              description="No Description" 
-              isComingSoon
+              title="无尽迷宫" 
+              description="Amazing roguelike adventure." 
+              author="OldTrafford"
+              date="2026年1月2日"
+              imageSrc="/keyboard.jpg"
+              variant="library"
             />
           </div>
         </DashboardSection>
