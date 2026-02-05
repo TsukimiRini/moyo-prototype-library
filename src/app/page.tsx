@@ -8,7 +8,7 @@ import { Volume2, LayoutGrid, Image as ImageIcon, Sparkles, Disc, Feather, Layou
 
 export default function Home() {
   return (
-    <div className="min-h-screen pb-24 relative bg-[#F5F8FF] overflow-x-hidden font-sans text-slate-800">
+    <div className="min-h-screen pb-24 relative overflow-x-hidden font-sans text-slate-800">
       <Navbar />
       
       <main className="max-w-[1360px] mx-auto px-6 lg:px-10 pt-10">
@@ -20,7 +20,7 @@ export default function Home() {
           icon={<Volume2 className="text-[#818CF8]" size={22} />}
           className="mb-8"
         >
-          <div className="bg-white rounded-[24px] h-[150px] w-full shadow-[0_2px_12px_rgba(230,235,255,0.7)] border border-white">
+          <div className="bg-white rounded-[24px] h-[150px] w-full shadow-[0_2px_2px_#CAEBFF] border border-white">
           </div>
         </DashboardSection>
 
@@ -57,6 +57,7 @@ export default function Home() {
           </div>
         </DashboardSection>
 
+
         {/* Game Library - Style C: Elegant Blue (User Request) */}
         <DashboardSection 
             title="游戏库 (样式C: 幽蓝雅致 - 最终版)" 
@@ -92,6 +93,46 @@ export default function Home() {
                   date="01 Feb"
                   imageSrc="/keyboard.jpg"
                   variant="library-elegant"
+                />
+             </div>
+          </div>
+        </DashboardSection>
+
+        {/* Game Library - Style D: Duplicated from C */}
+        <DashboardSection 
+            title="游戏库 (样式D)" 
+            icon={<Feather className="text-blue-400" size={22} />}
+            className="mb-12"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-2">
+             <div className="p-2">
+                <GameCard 
+                  title="高岭之花" 
+                  description="" 
+                  author="System"
+                  date="04 Feb"
+                  imageSrc="/keyboard.jpg"
+                  variant="library-elegant-rounded"
+                />
+             </div>
+             <div className="p-2">
+                <GameCard 
+                  title="Endless Maze" 
+                  description="" 
+                  author="RogueDev"
+                  date="03 Feb"
+                  imageSrc="/keyboard.jpg"
+                  variant="library-elegant-rounded"
+                />
+             </div>
+             <div className="p-2">
+                <GameCard 
+                  title="Cyberpunk" 
+                  description="" 
+                  author="CDPR"
+                  date="01 Feb"
+                  imageSrc="/keyboard.jpg"
+                  variant="library-elegant-rounded"
                 />
              </div>
           </div>

@@ -8,7 +8,7 @@ interface GameCardProps {
   author?: string;
   date?: string;
   isComingSoon?: boolean;
-  variant?: 'recent' | 'recent-fade' | 'recent-pixel' | 'recent-halftone' | 'recent-grid-fade' | 'library' | 'library-polaroid' | 'library-holographic' | 'library-elegant';
+  variant?: 'recent' | 'recent-fade' | 'recent-pixel' | 'recent-halftone' | 'recent-grid-fade' | 'library' | 'library-polaroid' | 'library-holographic' | 'library-elegant' | 'library-elegant-rounded';
   saveName?: string;
 }
 
@@ -129,34 +129,59 @@ export default function GameCard({
   // Variant H/I: Elegant Blue Polaroid (Refined)
   // Replaced 'library-holographic' with 'library-elegant' for clarity in request fulfillment, 
   // but keeping 'library-elegant' mapped to the new design.
-  if (variant === 'library-elegant' || variant === 'library-holographic') {
+  if (variant === 'library-elegant' || variant === 'library-holographic' || variant === 'library-elegant-rounded') {
+    const bgRoundClass = variant === 'library-elegant-rounded' ? 'rounded-[22px]' : '';
+    const glowRoundClass = variant === 'library-elegant-rounded' ? 'rounded-[26px]' : 'rounded-lg';
+    // Use user requested shadow for rounded variant, default shadow-lg for others
+    const shadowClass = variant === 'library-elegant-rounded' ? 'shadow-[0_2px_2px_#CAEBFF]' : 'shadow-lg';
+
+    const hoverEffectClass = variant === 'library-elegant-rounded' 
+      ? 'hover:-translate-y-1 hover:rotate-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.15)]' 
+      : 'hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(30,58,138,0.2)]';
+      
+    const aspectRatioClass = variant === 'library-elegant-rounded' ? 'aspect-square' : 'aspect-[3/4]';
+    const imageRoundedClass = variant === 'library-elegant-rounded' ? 'rounded-[8px]' : '';
+
     return (
-      <div className="relative group transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(30,58,138,0.2)]">
+      <div className={`relative group transition-all duration-500 ${hoverEffectClass} ${bgRoundClass}`}>
         
         {/* Soft Blue Glow Behind */}
-        <div className="absolute -inset-0.5 bg-gradient-to-b from-blue-50 to-indigo-100 rounded-lg blur-sm opacity-50 group-hover:opacity-100 transition duration-500"></div>
+        <div className={`absolute -inset-0.5 bg-gradient-to-b from-blue-50 to-indigo-100 blur-sm opacity-50 group-hover:opacity-100 transition duration-500 ${glowRoundClass}`}></div>
         
         {/* Card Body - Crisp White with thick borders */}
-        <div className="relative bg-white p-5 pb-5 shadow-lg backdrop-blur-sm overflow-hidden border border-slate-100 flex flex-col items-center">
+        <div className={`relative bg-white p-5 pb-5 ${shadowClass} backdrop-blur-sm overflow-hidden border border-slate-100 flex flex-col items-center ${bgRoundClass}`}>
              
             {/* Image Container - Vertical Portrait Layout aspect-[3/4] */}
             {/* Added a thin border around the image to separate it from the white frame nicely */}
-            <div className={`relative w-full aspect-[3/4] overflow-hidden bg-slate-50 mb-5 shadow-inner border border-slate-100 ${!imageSrc && 'flex items-center justify-center'}`}>
+            <div className={`relative w-full ${aspectRatioClass} ${imageRoundedClass} overflow-hidden bg-slate-50 mb-5 shadow-inner border border-slate-100 ${!imageSrc && 'flex items-center justify-center'}`}>
                 {imageSrc ? (
-                    <Image src={imageSrc} alt={title} fill className="object-cover opacity-100 group-hover:scale-[1.03] transition-transform duration-700" unoptimized />
+                    <Image src={imageSrc} alt={title} fill className={`object-cover opacity-100 ${variant === 'library-elegant-rounded' ? '' : 'group-hover:scale-[1.03]'} transition-transform duration-700`} unoptimized />
                 ) : (
                     <div className="text-slate-300 font-serif italic text-xs">No Image</div>
                 )}
                 
-                {/* Subtle sheen layer */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none mix-blend-overlay"></div>
-                
-                {/* Play Button - Integrated into the image area bottom right, classic style */}
-                <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-90 group-hover:scale-100 translate-y-2 group-hover:translate-y-0">
-                    <div className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-blue-600 shadow-md hover:bg-blue-600 hover:text-white transition-colors cursor-pointer">
-                        <Play fill="currentColor" size={16} className="ml-0.5" />
-                    </div>
-                </div>
+                {/* Overlay & Play Button Logic */}
+                {variant === 'library-elegant-rounded' ? (
+                   <>
+                     {/* Style D (like B): Center Play Button + Polaroid Overlay */}
+                     <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-orange-500/10 opacity-30 pointer-events-none mix-blend-overlay"></div>
+                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
+                        <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-slate-800 shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
+                            <Play fill="currentColor" size={24} className="ml-1" />
+                        </div>
+                     </div>
+                   </>
+                ) : (
+                   <>
+                     {/* Style C: Original Subtle Sheen + Bottom Right Button */}
+                     <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none mix-blend-overlay"></div>
+                     <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-90 group-hover:scale-100 translate-y-2 group-hover:translate-y-0">
+                        <div className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-blue-600 shadow-md hover:bg-blue-600 hover:text-white transition-colors cursor-pointer">
+                            <Play fill="currentColor" size={16} className="ml-0.5" />
+                        </div>
+                     </div>
+                   </>
+                )}
             </div>
 
             {/* Content Area - Clean Layout */}

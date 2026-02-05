@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-10 py-5 bg-white/70 backdrop-blur-sm sticky top-0 z-50 border-b border-transparent">
+    <nav className="flex items-center justify-between px-10 py-3 bg-white/70 backdrop-blur-sm sticky top-5 z-50 rounded-[24px] shadow-[0_2px_2px_#CAEBFF] w-[96%] max-w-7xl mx-auto">
       <div className="flex items-center gap-3">
         {/* Exact Worm Logo Shape */}
         <svg width="40" height="24" viewBox="0 0 50 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#6366F1]">
