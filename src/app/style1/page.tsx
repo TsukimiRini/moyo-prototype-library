@@ -1,4 +1,4 @@
-import NavbarStyle1 from '@/components/NavbarStyle1';
+import Navbar from '@/components/Navbar';
 import WelcomeHeader from '@/components/WelcomeHeader';
 import DashboardSection from '@/components/DashboardSection';
 import GameCard from '@/components/GameCard';
@@ -11,7 +11,7 @@ import AuthorNote from '@/components/AuthorNote';
 export default function Home() {
   return (
     <div className="min-h-screen pb-24 relative overflow-x-hidden font-sans text-slate-800">
-      <NavbarStyle1 />
+      <Navbar />
       
       <main className="max-w-[1360px] mx-auto px-6 lg:px-10 pt-10">
         <WelcomeHeader />

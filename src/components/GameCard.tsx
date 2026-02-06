@@ -57,7 +57,7 @@ export default function GameCard({
   if (variant === 'recent-grid-fade') {
      // ... Unchanged ...
      return (
-      <div className="bg-white rounded-[28px] overflow-hidden relative flex flex-col h-[200px] shadow-[0_2px_2px_#CAEBFF] hover:shadow-[0_4px_4px_#CAEBFF] transition-all duration-300 hover:-translate-y-1 group border border-indigo-50/50">
+      <div className="bg-white rounded-[28px] overflow-hidden relative flex flex-col h-[200px] shadow-[0_2px_2px_#CAEBFF] hover:shadow-[0_4px_4px_#CAEBFF] transition-all duration-300 hover:-translate-y-1 group">
          <div className="relative z-20 p-5 flex flex-col h-full">
              <div className="flex justify-between items-start">
                  <div className="flex flex-col">
@@ -149,7 +149,7 @@ export default function GameCard({
         <div className={`absolute -inset-0.5 bg-gradient-to-b from-blue-50 to-indigo-100 blur-sm opacity-50 group-hover:opacity-100 transition duration-500 ${glowRoundClass}`}></div>
         
         {/* Card Body - Crisp White with thick borders */}
-        <div className={`relative bg-white p-5 pb-5 ${shadowClass} backdrop-blur-sm overflow-hidden border border-slate-100 flex flex-col items-center ${bgRoundClass}`}>
+        <div className={`relative bg-white p-5 pb-5 ${shadowClass} backdrop-blur-sm overflow-hidden flex flex-col items-center ${bgRoundClass}`}>
              
             {/* Image Container - Vertical Portrait Layout aspect-[3/4] */}
             {/* Added a thin border around the image to separate it from the white frame nicely */}

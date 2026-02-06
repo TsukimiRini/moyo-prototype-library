@@ -23,8 +23,8 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-8 text-[13px] font-bold tracking-wide text-[#818CF8]">
-         <Link href="#" className="hover:text-[#6366F1] transition-colors">游戏库</Link>
-         <Link href="#" className="hover:text-[#6366F1] transition-colors">游戏编辑器</Link>
+         <Link href="/style1" className="hover:text-[#6366F1] transition-colors">游戏库</Link>
+         <Link href="/my-game" className="hover:text-[#6366F1] transition-colors">我的游戏</Link>
          <Link href="#" className="hover:text-[#6366F1] transition-colors">API配置</Link>
          <Link href="#" className="hover:text-[#6366F1] transition-colors">安全配置</Link>
         
