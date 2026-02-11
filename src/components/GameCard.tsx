@@ -107,6 +107,8 @@ export default function GameCard({
              ) : (
                 <Gamepad2 className="text-slate-300" size={40} />
              )}
+
+
              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-orange-500/10 opacity-30 pointer-events-none mix-blend-overlay"></div>
              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10 backdrop-blur-[1px]">
                 <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-slate-800 shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
@@ -143,44 +145,61 @@ export default function GameCard({
     const imageRoundedClass = '';
 
     return (
-      <div className={`relative group transition-all duration-500 ${hoverEffectClass} ${bgRoundClass}`}>
+      <div className={`relative group transition-all duration-500 ${hoverEffectClass} ${bgRoundClass} ${variant === 'library-elegant-rounded' ? 'aspect-[3/4]' : ''}`}>
         
         {/* Soft Blue Glow Behind */}
         <div className={`absolute -inset-0.5 bg-gradient-to-b from-blue-50 to-indigo-100 blur-sm opacity-50 group-hover:opacity-100 transition duration-500 ${glowRoundClass}`}></div>
         
         {/* Card Body - Crisp White with thick borders */}
-        <div className={`relative bg-white p-5 pb-5 ${shadowClass} backdrop-blur-sm overflow-hidden flex flex-col items-center ${bgRoundClass}`}>
+        <div className={`relative bg-white p-5 pb-5 ${shadowClass} backdrop-blur-sm overflow-hidden flex flex-col items-center ${bgRoundClass} ${variant === 'library-elegant-rounded' ? 'h-full' : ''}`}>
              
-            {/* Image Container - Vertical Portrait Layout aspect-[3/4] */}
-            {/* Added a thin border around the image to separate it from the white frame nicely */}
-            <div className={`relative w-full ${aspectRatioClass} ${imageRoundedClass} overflow-hidden bg-slate-50 mb-5 shadow-inner border border-slate-100 ${!imageSrc && 'flex items-center justify-center'}`}>
-                {imageSrc ? (
-                    <Image src={imageSrc} alt={title} fill className={`object-cover opacity-100 ${variant === 'library-elegant-rounded' ? '' : 'group-hover:scale-[1.03]'} transition-transform duration-700`} unoptimized />
-                ) : (
-                    <div className="text-slate-300 font-serif italic text-xs">No Image</div>
-                )}
-                
-                {/* Overlay & Play Button Logic */}
-                {variant === 'library-elegant-rounded' ? (
-                   <>
-                     {/* Style D (like B): Center Play Button + Polaroid Overlay */}
-                     <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-orange-500/10 opacity-30 pointer-events-none mix-blend-overlay"></div>
-                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
-                        <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-[#818cf8] shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
-                            <Play fill="currentColor" size={24} className="ml-1" />
+            {/* Image + Signature Wrapper - signature positions relative to this */}
+            <div className="relative w-full mb-5">
+                {/* Image Container */}
+                <div className={`relative w-full ${aspectRatioClass} ${imageRoundedClass} overflow-hidden bg-slate-50 shadow-inner border border-slate-100 ${!imageSrc && 'flex items-center justify-center'}`}>
+                    {imageSrc ? (
+                        <Image src={imageSrc} alt={title} fill className={`object-cover opacity-100 ${variant === 'library-elegant-rounded' ? '' : 'group-hover:scale-[1.03]'} transition-transform duration-700`} unoptimized />
+                    ) : (
+                        <div className="text-slate-300 font-serif italic text-xs">No Image</div>
+                    )}
+                    
+                    {/* Overlay & Play Button Logic */}
+                    {variant === 'library-elegant-rounded' ? (
+                        <>
+                          {/* Style D (like B): Center Play Button + Polaroid Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-orange-500/10 opacity-30 pointer-events-none mix-blend-overlay"></div>
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
+                             <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-[#818cf8] shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
+                                 <Play fill="currentColor" size={24} className="ml-1" />
+                             </div>
+                          </div>
+                        </>
+                    ) : (
+                        <>
+                          {/* Style C: Original Subtle Sheen + Bottom Right Button */}
+                          <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none mix-blend-overlay"></div>
+                          <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-90 group-hover:scale-100 translate-y-2 group-hover:translate-y-0">
+                             <div className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-blue-600 shadow-md hover:bg-blue-600 hover:text-white transition-colors cursor-pointer">
+                                 <Play fill="currentColor" size={16} className="ml-0.5" />
+                             </div>
+                          </div>
+                        </>
+                    )}
+                </div>
+
+                {/* Signature Overlay - positioned relative to image wrapper, floats above border */}
+                {variant === 'library-elegant-rounded' && (
+                    <div className="absolute -bottom-3 -right-12 w-[80%] z-30 pointer-events-none transform -rotate-2">
+                        <div className="relative w-full" style={{ aspectRatio: '2 / 1' }}>
+                            <Image 
+                                src="/20260211-164839_副本.png" 
+                                alt="Signature" 
+                                fill
+                                className="object-contain" 
+                                unoptimized 
+                            />
                         </div>
-                     </div>
-                   </>
-                ) : (
-                   <>
-                     {/* Style C: Original Subtle Sheen + Bottom Right Button */}
-                     <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none mix-blend-overlay"></div>
-                     <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-90 group-hover:scale-100 translate-y-2 group-hover:translate-y-0">
-                        <div className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-blue-600 shadow-md hover:bg-blue-600 hover:text-white transition-colors cursor-pointer">
-                            <Play fill="currentColor" size={16} className="ml-0.5" />
-                        </div>
-                     </div>
-                   </>
+                    </div>
                 )}
             </div>
 
@@ -202,12 +221,7 @@ export default function GameCard({
                       </span>
                  </div>
 
-                 {/* Signature Space - Reserved Area */}
-                 {/* Visual placeholder for where the signature will go */}
-                 <div className="mt-4 w-full h-8 flex items-center justify-center relative">
-                      <div className="absolute bottom-0 w-2/3 h-[1px] bg-slate-100"></div>
-                      <span className="text-[9px] text-slate-200 uppercase tracking-[0.2em] select-none">Signature Area</span>
-                 </div>
+                 {/* Signature Space - Removed as requested to move to cover */}
             </div>
         </div>
       </div>
