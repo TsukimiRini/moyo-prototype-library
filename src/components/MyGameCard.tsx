@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Play, MoreHorizontal, Edit3, UploadCloud, Trash2, Lock, Globe } from 'lucide-react';
 import Image from 'next/image';
-
+import Link from 'next/link';
 interface MyGameCardProps {
   title: string;
   imageSrc?: string;
@@ -70,9 +70,11 @@ export default function MyGameCard({
                     {/* Overlay & Play Button Logic (Style D) */}
                      <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-orange-500/10 opacity-30 pointer-events-none mix-blend-overlay"></div>
                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10">
-                        <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-[#818cf8] shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
-                            <Play fill="currentColor" size={24} className="ml-1" />
-                        </div>
+                        <Link href="/play" onClick={(e) => e.stopPropagation()}>
+                            <div className="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-[#818cf8] shadow-xl scale-90 group-hover:scale-100 transition-all cursor-pointer">
+                                <Play fill="currentColor" size={24} className="ml-1" />
+                            </div>
+                        </Link>
                      </div>
                 </div>
 

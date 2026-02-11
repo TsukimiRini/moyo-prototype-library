@@ -26,6 +26,7 @@ export default function Navbar() {
          <Link href="/style1" className="hover:text-[#6366F1] transition-colors">游戏库</Link>
          <Link href="/my-game" className="hover:text-[#6366F1] transition-colors">我的游戏</Link>
          <Link href="#" className="hover:text-[#6366F1] transition-colors">API配置</Link>
+         <Link href="/design-system" className="hover:text-[#6366F1] transition-colors">组件库</Link>
          <Link href="#" className="hover:text-[#6366F1] transition-colors">安全配置</Link>
         
         <div className="flex items-center gap-3 pl-6 ml-2 border-l border-gray-200/50 h-6">
