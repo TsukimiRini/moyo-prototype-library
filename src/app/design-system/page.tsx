@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import MyGameCard from '@/components/MyGameCard';
+import Loading from '@/components/Loading';
 import { Pagination, ConfigProvider } from 'antd';
 
 export default function DesignSystemPage() {
@@ -624,6 +625,92 @@ export default function DesignSystemPage() {
                         <span className="px-3 py-1 rounded-full border border-orange-200 bg-orange-50 text-[10px] font-bold text-orange-500 uppercase tracking-wide">
                             New
                         </span>
+                    </div>
+                </section>
+
+                {/* --- LOADING INDICATORS --- */}
+                <section id="loading" className="space-y-6">
+                    <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-200/60">
+                         <Clock size={18} className="text-[#818CF8]" />
+                         <h2 className="text-xl font-bold text-slate-700">Loading Indicators</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         {/* Variant: Spinner */}
+                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase">Spinner</h3>
+                            <div className="flex items-center gap-6">
+                                <Loading variant="spinner" size="sm" />
+                                <Loading variant="spinner" size="md" />
+                                <Loading variant="spinner" size="lg" />
+                                <Loading variant="spinner" size="md" className="text-amber-500" />
+                            </div>
+                         </div>
+
+                         {/* Variant: Dots */}
+                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase">Dots</h3>
+                            <div className="flex items-center gap-6">
+                                <Loading variant="dots" size="sm" />
+                                <Loading variant="dots" size="md" />
+                                <Loading variant="dots" size="lg" />
+                                <Loading variant="dots" size="md" className="text-emerald-500" />
+                            </div>
+                         </div>
+
+
+
+                         {/* Variant: Ring */}
+                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase">Ring</h3>
+                            <div className="flex items-center gap-6">
+                                <Loading variant="ring" size="sm" />
+                                <Loading variant="ring" size="md" />
+                                <Loading variant="ring" size="lg" />
+                                <Loading variant="ring" size="md" className="text-rose-500" />
+                            </div>
+                         </div>
+
+
+
+                         {/* Variant: Spinner with Text */}
+                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase">Spinner + Text</h3>
+                            <div className="flex flex-col gap-4">
+                                <Loading variant="spinner-text" size="sm" />
+                                <Loading variant="spinner-text" size="md" text="Processing..." />
+                            </div>
+                         </div>
+
+                         {/* Variant: Spinner + Text (Vertical) */}
+                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase">Vertical Spinner</h3>
+                            <div className="flex items-center gap-8">
+                                <Loading variant="spinner-vertical" size="sm" />
+                                <Loading variant="spinner-vertical" size="md" />
+                            </div>
+                         </div>
+
+                         {/* Variant: Thick Spinner */}
+                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase">Thick Spinner</h3>
+                            <div className="flex items-center gap-8">
+                                <Loading variant="spinner-thick" size="sm" />
+                                <Loading variant="spinner-thick" size="md" />
+                                <Loading variant="spinner-thick" size="lg" />
+                                <Loading variant="spinner-thick" size="md" className="text-cyan-500" />
+                            </div>
+                         </div>
+
+                         {/* Variant: Combo Spinner */}
+                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col gap-4">
+                            <h3 className="text-sm font-bold text-slate-400 uppercase">Combo Spinner</h3>
+                            <div className="flex items-center gap-8">
+                                <Loading variant="spinner-combo" size="sm" />
+                                <Loading variant="spinner-combo" size="md" />
+                                <Loading variant="spinner-combo" size="md" text="INITIALIZING" className="text-pink-500" />
+                            </div>
+                         </div>
                     </div>
                 </section>
 
