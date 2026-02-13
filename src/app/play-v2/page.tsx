@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import { 
-    Play, Clock, Globe, ChevronRight, ChevronLeft, BookOpen, Save 
+    Play, Clock, Globe, ChevronRight, ChevronLeft, BookOpen, Save, Trash2, Edit3 
 } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -202,29 +202,28 @@ export default function PlayV2() {
                                 </div>
 
                                 {archives.map((save) => (
-                                    <div key={save.id} className="group relative p-3 bg-white hover:bg-white border border-transparent hover:border-indigo-100 rounded-xl transition-all cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-0.5">
-                                        <div className="flex justify-between items-start mb-1.5">
-                                            <span className={`px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider rounded-md ${
-                                                save.status === 'Completed' ? 'bg-emerald-50 text-emerald-600' :
-                                                save.status === 'Mission Failed' ? 'bg-red-50 text-red-600' :
-                                                'bg-amber-50 text-amber-600'
-                                            }`}>
-                                                {save.status}
-                                            </span>
-                                            <span className="text-[10px] text-slate-400 font-mono">{save.date}</span>
+                                    <div key={save.id} className="group relative flex items-center justify-between p-4 rounded-xl bg-white border border-transparent hover:border-indigo-100 hover:shadow-[0_2px_2px_#CAEBFF] transition-all cursor-pointer">
+                                        <div className="flex items-center gap-3">
+                                            {/* Left Icon Area: Dot / Play */}
+                                            <div className="relative w-6 h-6 flex items-center justify-center">
+                                                <div className="w-2 h-2 rounded-full bg-slate-300 group-hover:bg-indigo-50 group-hover:scale-[3] transition-all duration-300"></div>
+                                                <Play size={10} fill="currentColor" className="absolute text-indigo-500 ml-0.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-50 group-hover:scale-100" />
+                                            </div>
+                                            
+                                            <div className="flex flex-col">
+                                                <h4 className="text-sm font-bold text-slate-600 group-hover:text-slate-800 transition-colors">{save.title}</h4>
+                                                <span className="text-[10px] text-slate-300 group-hover:text-slate-400 transition-colors">{save.date}</span>
+                                            </div>
                                         </div>
-                                        <h3 className="text-sm font-bold text-slate-700 group-hover:text-indigo-600 transition-colors mb-1 truncate">
-                                            {save.title}
-                                        </h3>
-                                        <div className="flex items-center gap-3 text-[10px] text-slate-500 mt-2 border-t border-slate-100 pt-2">
-                                            <div className="flex items-center gap-1">
-                                                <Clock size={10} />
-                                                {save.playTime}
-                                            </div>
-                                            <div className="flex items-center gap-1 truncate max-w-[80px]">
-                                                <Globe size={10} />
-                                                {save.location}
-                                            </div>
+                                        
+                                        {/* Right Actions: Rename + Delete */}
+                                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all scale-95 group-hover:scale-100 origin-right">
+                                            <button className="p-2 text-slate-300 hover:text-indigo-500 hover:bg-indigo-50 rounded-lg transition-all" title="Rename Archive">
+                                                <Edit3 size={14} />
+                                            </button>
+                                            <button className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete Archive">
+                                                <Trash2 size={14} />
+                                            </button>
                                         </div>
                                     </div>
                                 ))}
