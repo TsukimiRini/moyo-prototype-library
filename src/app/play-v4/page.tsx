@@ -7,9 +7,10 @@ import {
 } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
+import { useRouter } from 'next/navigation';
 
 export default function PlayV4() {
-
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState('about');
     const [selectedArchiveId, setSelectedArchiveId] = useState<number | null>(null);
     
@@ -200,7 +201,7 @@ export default function PlayV4() {
                                     return (
                                         <div 
                                             key={save.id} 
-                                            onClick={() => setSelectedArchiveId(save.id)}
+                                            onClick={() => router.push('/launcher')}
                                             className="group flex items-center justify-between p-3 bg-white rounded-xl border border-slate-50 transition-all cursor-pointer hover:shadow-[0_2px_2px_#CAEBFF] hover:-translate-y-0.5"
                                         >
                                             <div className="flex items-center gap-3">
