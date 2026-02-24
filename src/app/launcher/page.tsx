@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import { 
-    Play, Clock, Globe, ChevronRight, ChevronLeft, BookOpen, Save, Trash2, Plus, Edit3, User, Settings, Maximize2, Minimize2, Menu, X
+    Play, Clock, Globe, ChevronRight, ChevronLeft, BookOpen, Save, Trash2, Plus, Edit3, User, Settings, Maximize2, Minimize2, Menu, X, PanelRightClose, PanelRightOpen
 } from 'lucide-react';
 
 export default function PlayV4() {
@@ -12,6 +12,7 @@ export default function PlayV4() {
     const [selectedArchiveId, setSelectedArchiveId] = useState<number | null>(null);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isFullscreenSidebarOpen, setIsFullscreenSidebarOpen] = useState(false);
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [showFullscreenControls, setShowFullscreenControls] = useState(false);
     const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -37,7 +38,7 @@ export default function PlayV4() {
         { id: 3, title: 'Chapter 2: Ambush', date: '3 days ago', status: 'Mission Failed', playTime: '8h 45m', location: 'Dark Forest' },
     ];
 
-    const renderSidebarContent = () => (
+    const renderSidebarContent = (isOverlay = false) => (
         <>
             {/* Tabs */}
             <div className="shrink-0 mb-6 relative">
@@ -47,7 +48,7 @@ export default function PlayV4() {
                             onClick={() => setActiveTab('archive')}
                             className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-[16px] text-sm font-bold transition-all ${
                                 activeTab === 'archive' 
-                                ? 'bg-white text-[#818CF8] shadow-sm' 
+                                ? 'bg-white text-[#818CF8]' 
                                 : 'text-slate-400 hover:text-slate-600'
                             }`}
                         >
@@ -58,7 +59,7 @@ export default function PlayV4() {
                             onClick={() => setActiveTab('protag')}
                             className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-[16px] text-sm font-bold transition-all ${
                                 activeTab === 'protag' 
-                                ? 'bg-white text-[#818CF8] shadow-sm' 
+                                ? 'bg-white text-[#818CF8]' 
                                 : 'text-slate-400 hover:text-slate-600'
                             }`}
                         >
@@ -66,6 +67,15 @@ export default function PlayV4() {
                             主角
                         </button>
                     </div>
+                    {!isOverlay && (
+                        <button 
+                            onClick={() => setIsSidebarCollapsed(true)}
+                            className="hidden lg:flex items-center justify-center w-11 h-11 text-slate-400 hover:text-[#818CF8] bg-white rounded-[18px] transition-all border border-slate-200/50 hover:border-indigo-200 shrink-0"
+                            title="收起侧边栏"
+                        >
+                            <PanelRightClose size={18} />
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -188,19 +198,29 @@ export default function PlayV4() {
 
     return (
         <div className="min-h-screen bg-[#f2fcff] text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-900">
-            {/* Navbar */}
-            <div className="fixed top-0 left-0 right-0 z-50 pt-6 px-6">
-                <Navbar />
-            </div>
+            <Navbar />
 
             {/* Main Content */}
-            <main className="pt-32 pb-20 max-w-7xl mx-auto px-6">
+            <main className="pt-14 pb-8 max-w-[1600px] mx-auto px-10">
                 
                 {/* Game Hero Container */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="flex flex-col lg:flex-row gap-8 w-full max-w-full">
                     
-                    {/* Left Column (Main Area) - 66% width */}
-                    <div className="lg:col-span-2 flex flex-col gap-4 h-[calc(100vh-9rem)]">
+                    {/* Left Column (Main Area) */}
+                    <div className={`flex flex-col gap-4 h-[calc(100vh-8rem)] transition-all duration-500 ease-in-out shrink-0 relative ${
+                        isSidebarCollapsed ? 'w-full' : 'w-full lg:w-[calc(72%-24px)]'
+                    }`}>
+                        {/* Expand Sidebar Button (Visible only when collapsed) */}
+                        {isSidebarCollapsed && (
+                            <button 
+                                onClick={() => setIsSidebarCollapsed(false)}
+                                className="fixed top-40 right-0 hidden lg:flex items-center justify-center p-3 pl-4 pr-3 text-slate-400 hover:text-[#818CF8] bg-white/95 backdrop-blur-md border border-slate-200/80 border-r-0 rounded-l-2xl transition-all shadow-[-4px_2px_16px_rgba(0,0,0,0.08)] z-40 hover:pr-4 hover:bg-indigo-50"
+                                title="展开侧边栏"
+                            >
+                                <PanelRightOpen size={18} />
+                            </button>
+                        )}
+
                         {/* Game Placeholder */}
                         <div 
                             className={`flex-1 flex flex-col items-center justify-center transition-all duration-500 origin-center select-none ${
@@ -249,7 +269,7 @@ export default function PlayV4() {
                                         </button>
                                     </div>
                                     <div className="flex-1 flex flex-col h-full overflow-hidden">
-                                        {renderSidebarContent()}
+                                        {renderSidebarContent(true)}
                                     </div>
                                 </div>
                             )}
@@ -279,7 +299,7 @@ export default function PlayV4() {
 
                                 {/* Right: Status & Save */}
                                 <div className="flex items-center gap-4">
-                                    <div className="text-sm font-bold text-slate-700 mt-3">
+                                    <div className="text-sm font-bold text-slate-700 mt-3 hidden sm:block">
                                         7 / 7 <span className="text-orange-400/80 font-medium ml-1 text-xs tracking-wide">(最多回退5步)</span>
                                     </div>
                                     <div className="flex flex-col items-end">
@@ -304,12 +324,14 @@ export default function PlayV4() {
                         </div>
                     </div>
 
-                    {/* Right Column (Sidebar) - 33% width */}
-                    <div className="space-y-6">
+                    {/* Right Column (Sidebar) */}
+                    <div className={`transition-all duration-500 ease-in-out overflow-hidden hidden lg:block shrink-0 ${
+                        isSidebarCollapsed ? 'w-0 opacity-0' : 'w-[calc(28%-8px)] opacity-100'
+                    }`}>
                         
                         {/* Recent Activity / Archives / Character (Sidebar) */}
-                        <div className="bg-slate-50/50 rounded-[24px] p-6 border border-slate-200/60 sticky top-32 backdrop-blur-sm h-[calc(100vh-9rem)] flex flex-col hidden lg:flex">
-                            {renderSidebarContent()}
+                        <div className="bg-slate-50/50 rounded-[24px] p-6 border border-slate-200/60 sticky top-24 backdrop-blur-sm h-[calc(100vh-8rem)] flex flex-col w-full max-w-sm">
+                            {renderSidebarContent(false)}
                         </div>
 
                     </div>

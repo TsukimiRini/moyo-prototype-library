@@ -3,8 +3,9 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-10 py-3 bg-white/70 backdrop-blur-sm sticky top-5 z-50 rounded-[24px] shadow-[0_2px_2px_#CAEBFF] w-[96%] max-w-7xl mx-auto">
-      <div className="flex items-center gap-3">
+    <div className="w-full max-w-[1600px] mx-auto px-6 lg:px-10 sticky top-6 z-50">
+      <nav className="flex items-center justify-between px-6 py-3 bg-white/70 backdrop-blur-sm shadow-[0_2px_2px_#CAEBFF] rounded-[24px] w-full">
+        <div className="flex items-center gap-3">
         {/* Exact Worm Logo Shape */}
         <svg width="40" height="24" viewBox="0 0 50 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#6366F1]">
            <path 
@@ -34,6 +35,7 @@ export default function Navbar() {
            <ChevronDown size={16} className="text-gray-300 cursor-pointer hover:text-[#6366F1]" />
         </div>
       </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

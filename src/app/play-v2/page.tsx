@@ -39,10 +39,7 @@ export default function PlayV2() {
 
     return (
         <div className="min-h-screen bg-[#f2fcff] text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-900">
-            {/* Navbar */}
-            <div className="fixed top-0 left-0 right-0 z-50 pt-6 px-6">
-                <Navbar />
-            </div>
+            <Navbar />
 
             {/* Main Content */}
             <main className="pt-32 pb-20 max-w-7xl mx-auto px-6">

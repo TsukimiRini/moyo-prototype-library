@@ -19,10 +19,7 @@ export default function PlayPage() {
 
   return (
     <div className="h-screen bg-[#f2fcff] font-sans flex flex-col overflow-hidden relative">
-      {/* Navbar Wrapper */}
-      <div className="shrink-0 pt-5 pb-2 px-6">
-        <Navbar />
-      </div>
+      <Navbar />
 
       <main className={`flex-1 min-h-0 max-w-7xl mx-auto w-full px-6 pb-6 flex flex-col lg:flex-row items-stretch transition-all duration-700 ease-in-out ${isSidebarOpen ? 'gap-6' : 'gap-0'}`}>
         
