@@ -276,50 +276,59 @@ export default function PlayV4() {
                         </div>
 
                         {/* Game State Navigation Bar */}
-                        <div className={`bg-white/70 backdrop-blur-sm rounded-[24px] shadow-[0_2px_2px_#CAEBFF] px-4 py-2.5 flex flex-col shrink-0 transition-all duration-300 select-none ${
+                        <div className={`bg-white/70 backdrop-blur-sm rounded-[24px] shadow-[0_2px_2px_#CAEBFF] px-5 py-2.5 flex items-stretch shrink-0 transition-all duration-300 select-none ${
                             isFullscreen
                             ? `fixed left-1/2 -translate-x-1/2 w-[calc(100vw-48px)] max-w-3xl z-[120] ${
                                 showFullscreenControls ? 'bottom-8 opacity-100 pointer-events-auto shadow-xl' : '-bottom-10 opacity-0 pointer-events-none'
                             }`
                             : 'w-full relative opacity-100 pointer-events-auto'
                         }`}>
-                            {/* Top part */}
-                            <div className="flex items-center justify-between">
-                                {/* Left: Navigation */}
-                                <div className="flex items-center gap-6">
-                                    <button className="flex items-center gap-1 text-[#818CF8] font-bold hover:text-indigo-500 transition-colors text-sm">
-                                        <ChevronLeft size={16} strokeWidth={3} />
-                                        <span className="tracking-wide">后退</span>
-                                    </button>
-                                    <button className="flex items-center gap-1 text-slate-300 cursor-not-allowed font-bold text-sm">
-                                        <span className="tracking-wide">前进</span>
-                                        <ChevronRight size={16} strokeWidth={3} />
-                                    </button>
-                                </div>
-
-                                {/* Right: Status & Save */}
-                                <div className="flex items-center gap-4">
-                                    <div className="text-sm font-bold text-slate-700 mt-3 hidden sm:block">
-                                        7 / 7 <span className="text-orange-400/80 font-medium ml-1 text-xs tracking-wide">(最多回退5步)</span>
-                                    </div>
-                                    <div className="flex flex-col items-end">
-                                        <span className="text-[10px] text-slate-400 font-medium leading-none mb-1 mr-1">已保存 7 步</span>
-                                        <button className="flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-400 rounded-md text-xs font-bold border border-slate-200/50 cursor-not-allowed transition-colors shadow-sm">
-                                            <Save size={13} strokeWidth={2.5} />
-                                            <span>已保存</span>
-                                        </button>
-                                    </div>
-                                </div>
+                            {/* Left: Title (occupies full height, vertically centered) */}
+                            <div className="flex items-center gap-2 pr-5 mr-5 border-r border-slate-200/50 shrink-0">
+                                <h2 className="text-xl font-black text-slate-800 tracking-tight">
+                                    高岭之花
+                                </h2>
+                                <span className="px-1.5 py-0.5 bg-indigo-50 text-[#818CF8] text-[9px] font-bold rounded border border-indigo-100/50">运行中</span>
                             </div>
 
-                            {/* Bottom Context Info */}
-                            <div className="flex items-center gap-1.5 mt-1 -ml-0.5">
-                                <span className="text-xs leading-none opacity-80 mb-0.5">💡</span>
-                                <p className="text-[11px] text-slate-400 font-medium tracking-wide">
-                                    返回到之前的状态后，新的交互将覆盖原有的后续状态 
-                                    <span className="text-orange-400/80 mx-1.5">•</span> 
-                                    <span className="text-orange-400/80">为避免迷失，限制最多回退5个状态</span>
-                                </p>
+                            {/* Right: Controls & Context (Flex Col) */}
+                            <div className="flex-1 flex flex-col justify-center">
+                                {/* Top part: Controls */}
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <button className="flex items-center gap-1 text-[#818CF8] font-bold hover:text-indigo-500 transition-colors text-sm">
+                                            <ChevronLeft size={16} strokeWidth={3} />
+                                            <span className="tracking-wide">后退</span>
+                                        </button>
+                                        <button className="flex items-center gap-1 text-slate-300 cursor-not-allowed font-bold text-sm">
+                                            <span className="tracking-wide">前进</span>
+                                            <ChevronRight size={16} strokeWidth={3} />
+                                        </button>
+                                    </div>
+
+                                    {/* Right: Status & Save */}
+                                    <div className="flex items-center gap-4">
+                                        <div className="text-sm font-bold text-slate-700 mt-1 hidden sm:block">
+                                            7 / 7 <span className="text-orange-400/80 font-medium ml-1 text-xs tracking-wide">(最多回退5步)</span>
+                                        </div>
+                                        <div className="flex flex-col items-end">
+                                            <button className="flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-400 rounded-md text-xs font-bold border border-slate-200/50 cursor-not-allowed transition-colors shadow-sm">
+                                                <Save size={13} strokeWidth={2.5} />
+                                                <span>已保存</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Bottom part: Context Info */}
+                                <div className="flex items-center gap-1.5 mt-1 -ml-0.5">
+                                    <span className="text-[10px] leading-none opacity-80 mb-0.5">💡</span>
+                                    <p className="text-[10px] text-slate-400 font-medium tracking-wide">
+                                        返回到之前的状态后，新的交互将覆盖原有的后续状态 
+                                        <span className="text-orange-400/80 mx-1.5">•</span> 
+                                        <span className="text-orange-400/80">为避免迷失，限制最多回退5个状态</span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
